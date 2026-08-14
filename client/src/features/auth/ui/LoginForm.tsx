@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { type LoginFormProps, type LoginFormState } from "../types";
 
 const LoginSchema = z.object({
@@ -69,9 +70,9 @@ function LoginForm({ onLogin }: LoginFormProps) {
       <div className="flex justify-between text-sm mt-8">
         <span>
           Don't have account?
-          <a href="" className="ml-1 hover:underline text-[#a37d32]">
+          <Link to="/register" className="ml-1 hover:underline text-[#a37d32]">
             Register here
-          </a>
+          </Link>
         </span>
         <span>
           Forget password?

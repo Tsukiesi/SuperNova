@@ -1,9 +1,13 @@
 import LoginPage from "@/pages/auth/LoginPage";
-
+import { Route, Routes } from "react-router-dom";
+import RegisterPage from "./pages/auth/RegisterPage";
 function App() {
   return (
     <>
-      <LoginPage />
+      <Routes>
+        <Route path="" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
+      </Routes>
     </>
   );
 }

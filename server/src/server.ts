@@ -1,13 +1,12 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import authRoutes from "./routes/authRoutes.js";
+dotenv.config();
 
 const corsAllowed = 5173;
 const app = express();
-
-dotenv.config();
-
-const PORT = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 app.use(
   cors({
@@ -23,6 +22,8 @@ app.get("/api/status", (_, res) => {
     message: "API is running",
   });
 });
+
+app.use("/auth", authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

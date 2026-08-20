@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 .env
 !.env.example
-src/generated/prisma
+server/src/generated/prisma

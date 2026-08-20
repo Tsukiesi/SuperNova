@@ -1,9 +1,10 @@
 import LoginForm from "@/features/auth/ui/LoginForm";
 import rocketIcon from "@/assets/rocket-icon.svg";
 import { useState } from "react";
+import { useAuth } from "@/features/auth/AuthContext";
 
 function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading } = useAuth();
   const [isBackgroundChanged, setIsBackgroundChanged] = useState(false);
   return (
     <div
@@ -21,7 +22,6 @@ function LoginPage() {
       <div className="flex flex-col justify-center items-center gap-4 relative z-10">
         <LoginForm
           onLogin={() => {
-            setIsLoading(true);
             setTimeout(() => setIsBackgroundChanged(true), 800);
           }}
         />

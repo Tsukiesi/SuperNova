@@ -2,18 +2,18 @@ import express from "express";
 import prisma from "../lib/prismaClient.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import env from "../env.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
-dotenv.config();
 const router = express();
 router.use(express.json());
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = env.JWT_SECRET;
 if (!JWT_SECRET) {
   throw new Error("JWT_SECRET is not defined in .env file");
 }
 
-router.get("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -41,9 +41,9 @@ router.get("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, 10);
   try {
+    const { username, email, password } = req.body;
+    const hashedPassword = bcrypt.hashSync(password, 10);
     const user = await prisma.user.create({
       data: {
         username,
@@ -56,6 +56,22 @@ router.post("/register", async (req, res) => {
       expiresIn: "7d",
     });
     res.json({ token });
+  } catch (err) {
+    if (err instanceof Error) console.log(err.message);
+    else console.log("Unknown error");
+    res.sendStatus(503);
+  }
+});
+
+router.get("/me", authMiddleware, (req, res) => {
+  const userId = req.userId;
+  try {
+    const user = prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+    res.json(user);
   } catch (err) {
     if (err instanceof Error) console.log(err.message);
     else console.log("Unknown error");

@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { type RegisterFormState } from "../types";
-
+import authAPI from "../authApi";
 const RegisterSchema = z
   .object({
     username: z
@@ -35,8 +35,10 @@ function RegisterForm() {
   const { register, handleSubmit, formState } = useForm<RegisterFormState>({
     resolver: zodResolver(RegisterSchema),
   });
-  const onSubmit = (data: RegisterFormState) => {
-    console.log(data);
+  const onSubmit = (userData: RegisterFormState) => {
+    authAPI
+      .register(userData)
+      .then((resData) => localStorage.setItem("token", resData.token));
   };
   const { errors } = formState;
   const navigate = useNavigate();
@@ -120,7 +122,7 @@ function RegisterForm() {
       <button
         aria-label="Back to login"
         type="button"
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/login")}
       >
         <img
           className={

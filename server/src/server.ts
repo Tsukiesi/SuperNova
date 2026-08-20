@@ -23,7 +23,7 @@ app.get("/api/status", (_, res) => {
   });
 });
 
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

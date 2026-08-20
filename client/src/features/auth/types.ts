@@ -13,3 +13,25 @@ export type RegisterFormState = {
   confirmPassword: string;
   email: string;
 };
+
+export type User = {
+  id: number;
+  username: string;
+  email: string;
+};
+
+export type AuthContextType = {
+  user: User | null;
+  isLoading: boolean;
+};
+
+export type LoginForm = {
+  email: string;
+  password: string;
+};
+
+export type RegisterForm = {
+  username: string;
+  email: string;
+  password: string;
+};

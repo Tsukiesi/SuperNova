@@ -23,6 +23,7 @@ export type User = {
 export type AuthContextType = {
   user: User | null;
   isLoading: boolean;
+  getMe(): Promise<void>;
 };
 
 export type LoginForm = {

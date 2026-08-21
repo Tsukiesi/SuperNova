@@ -1,26 +1,37 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { type AuthContextType, type User } from "./types";
+import { useNavigate } from "react-router-dom";
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
+  const navigate = useNavigate();
+  async function getMe() {
     const token = localStorage.getItem("token");
-    fetch("/api/auth/login", {
+    fetch("http://localhost:3000/api/auth/me", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => {
         if (!response.ok) throw new Error("Not authenticated");
         return response.json();
       })
-      .then((user) => setUser(user))
-      .catch(() => setUser(null))
+      .then((user) => {
+        setUser(user);
+        navigate("/");
+      })
+      .catch(() => {
+        console.log("Ошибка");
+        setUser(null);
+      })
       .finally(() => setIsLoading(false));
+  }
+
+  useEffect(() => {
+    getMe();
   }, []);
   return (
-    <AuthContext.Provider value={{ user, isLoading }}>
+    <AuthContext.Provider value={{ user, isLoading, getMe }}>
       {children}
     </AuthContext.Provider>
   );

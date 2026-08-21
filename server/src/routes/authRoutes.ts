@@ -5,8 +5,7 @@ import jwt from "jsonwebtoken";
 import env from "../env.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 
-const router = express();
-router.use(express.json());
+const router = express.Router();
 
 const JWT_SECRET = env.JWT_SECRET;
 if (!JWT_SECRET) {
@@ -63,12 +62,17 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.get("/me", authMiddleware, (req, res) => {
+router.get("/me", authMiddleware, async (req, res) => {
   const userId = req.userId;
   try {
-    const user = prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         id: userId,
+      },
+      select: {
+        id: true,
+        username: true,
+        email: true,
       },
     });
     res.json(user);

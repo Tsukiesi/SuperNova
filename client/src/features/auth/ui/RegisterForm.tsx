@@ -12,7 +12,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { type RegisterFormState } from "../types";
-import authAPI from "../authApi";
+import authAPI from "../authAPI";
+import { useAuth } from "../AuthContext";
 const RegisterSchema = z
   .object({
     username: z
@@ -35,13 +36,16 @@ function RegisterForm() {
   const { register, handleSubmit, formState } = useForm<RegisterFormState>({
     resolver: zodResolver(RegisterSchema),
   });
-  const onSubmit = (userData: RegisterFormState) => {
-    authAPI
-      .register(userData)
-      .then((resData) => localStorage.setItem("token", resData.token));
-  };
   const { errors } = formState;
   const navigate = useNavigate();
+  const { getMe } = useAuth();
+  const onSubmit = (userData: RegisterFormState) => {
+    authAPI.register(userData).then((resData) => {
+      localStorage.setItem("token", resData.token);
+      getMe();
+    });
+  };
+
   return (
     <form
       noValidate

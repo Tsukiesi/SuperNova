@@ -11,7 +11,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { type LoginFormProps, type LoginFormState } from "../types";
-import authAPI from "../authApi";
+import authAPI from "../authAPI";
+import { useAuth } from "../AuthContext";
 
 const LoginSchema = z.object({
   email: z
@@ -24,13 +25,16 @@ function LoginForm({ onLogin }: LoginFormProps) {
   const { register, handleSubmit, formState } = useForm<LoginFormState>({
     resolver: zodResolver(LoginSchema),
   });
-  const onSubmit = (userData: LoginFormState) => {
-    authAPI
-      .login(userData)
-      .then((resData) => localStorage.setItem("token", resData.token));
-    onLogin();
-  };
   const { errors } = formState;
+  const { getMe } = useAuth();
+  const onSubmit = (userData: LoginFormState) => {
+    authAPI.login(userData).then((resData) => {
+      localStorage.setItem("token", resData.token);
+      onLogin();
+      getMe();
+    });
+  };
+
   return (
     <form
       noValidate

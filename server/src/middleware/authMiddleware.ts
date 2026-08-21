@@ -4,7 +4,7 @@ import env from "../env.js";
 import z from "zod";
 
 const jwtSchema = z.object({
-  userId: z.string(),
+  userId: z.number(),
 });
 
 function authMiddleware(req: Request, res: Response, next: NextFunction) {

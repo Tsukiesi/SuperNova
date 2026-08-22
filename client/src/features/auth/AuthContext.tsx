@@ -21,7 +21,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         navigate("/");
       })
       .catch(() => {
-        console.log("Ошибка");
         setUser(null);
       })
       .finally(() => setIsLoading(false));

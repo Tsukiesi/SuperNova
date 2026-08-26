@@ -9,6 +9,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   async function getMe() {
     const token = localStorage.getItem("token");
+    if (!token) navigate("/login");
     fetch("http://localhost:3000/api/auth/me", {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -16,17 +17,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (!response.ok) throw new Error("Not authenticated");
         return response.json();
       })
-      .then((user) => {
-        setUser(user);
+      .then((userData) => {
+        setUser(userData);
         navigate("/");
       })
       .catch(() => {
         setUser(null);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   useEffect(() => {
+    console.log("Get me");
     getMe();
   }, []);
   return (

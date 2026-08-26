@@ -22,17 +22,26 @@ const LoginSchema = z.object({
 });
 
 function LoginForm({ onLogin }: LoginFormProps) {
-  const { register, handleSubmit, formState } = useForm<LoginFormState>({
-    resolver: zodResolver(LoginSchema),
-  });
+  const { register, handleSubmit, formState, setError } =
+    useForm<LoginFormState>({
+      resolver: zodResolver(LoginSchema),
+    });
   const { errors } = formState;
   const { getMe } = useAuth();
   const onSubmit = (userData: LoginFormState) => {
-    authAPI.login(userData).then((resData) => {
-      localStorage.setItem("token", resData.token);
-      onLogin();
-      getMe();
-    });
+    authAPI
+      .login(userData)
+      .then((resData) => {
+        localStorage.setItem("token", resData.token);
+        onLogin();
+        getMe();
+      })
+      .catch((error) => {
+        setError("root.serverError", {
+          type: "server",
+          message: error.message,
+        });
+      });
   };
 
   return (
@@ -55,7 +64,7 @@ function LoginForm({ onLogin }: LoginFormProps) {
           />
           <FieldError
             errors={[errors.email]}
-            className="absolute left-0 top-full mt-1"
+            className="absolute top-full mt-1"
           />
         </Field>
 
@@ -70,11 +79,15 @@ function LoginForm({ onLogin }: LoginFormProps) {
           />
           <FieldError
             errors={[errors.password]}
-            className="absolute left-0 top-full mt-1"
+            className="absolute top-full mt-1"
+          />
+          <FieldError
+            errors={[errors.root?.serverError]}
+            className="absolute top-full mt-1"
           />
         </Field>
       </FieldGroup>
-      <div className="flex justify-between text-sm mt-8">
+      <div className="relative flex justify-between text-sm mt-8">
         <span>
           Don't have account?
           <Link to="/register" className="ml-1 hover:underline text-[#a37d32]">

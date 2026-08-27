@@ -19,7 +19,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       })
       .then((userData) => {
         setUser(userData);
-        navigate("/");
       })
       .catch(() => {
         setUser(null);
@@ -28,13 +27,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIsLoading(false);
       });
   }
-
+  function logout() {
+    setUser(null);
+  }
   useEffect(() => {
-    console.log("Get me");
     getMe();
   }, []);
   return (
-    <AuthContext.Provider value={{ user, isLoading, getMe }}>
+    <AuthContext.Provider value={{ user, isLoading, getMe, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,11 +1,9 @@
 import LoginForm from "@/features/auth/ui/LoginForm";
 import rocketIcon from "@/assets/rocket-icon.svg";
-import { useState } from "react";
 import { useAuth } from "@/features/auth/AuthContext";
 
 function LoginPage() {
   const { isLoading } = useAuth();
-  const [isBackgroundChanged, setIsBackgroundChanged] = useState(false);
   return (
     <div
       className={
@@ -13,18 +11,11 @@ function LoginPage() {
       }
     >
       <div
-        className={`absolute inset-0 z-0 bg-cover bg-center transition-opacity duration-800 bg-[url('/background-clouds.jpg')] ${isBackgroundChanged ? "opacity-0" : "opacity-100"}`}
-      />
-      <div
-        className={`absolute inset-0 z-0 bg-cover bg-center transition-opacity duration-800 bg-[url('/background-blackhole.jpg')] ${isBackgroundChanged ? "opacity-100" : "opacity-0"}`}
+        className={`absolute inset-0 z-0 bg-cover bg-center transition-opacity duration-800 bg-[url('/background-clouds.jpg')]`}
       />
 
       <div className="flex flex-col justify-center items-center gap-4 relative z-10">
-        <LoginForm
-          onLogin={() => {
-            setTimeout(() => setIsBackgroundChanged(true), 800);
-          }}
-        />
+        <LoginForm />
       </div>
 
       <img

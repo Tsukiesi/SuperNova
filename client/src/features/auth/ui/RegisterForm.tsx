@@ -10,7 +10,7 @@ import leftArrowIcon from "@/assets/left-arrow-icon.svg";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { type RegisterFormState } from "../types";
 import authAPI from "../authAPI";
 import { useAuth } from "../AuthContext";
@@ -33,18 +33,25 @@ const RegisterSchema = z
   });
 
 function RegisterForm() {
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const { register, handleSubmit, formState } = useForm<RegisterFormState>({
     resolver: zodResolver(RegisterSchema),
   });
   const { errors } = formState;
-  const navigate = useNavigate();
   const { getMe } = useAuth();
   const onSubmit = (userData: RegisterFormState) => {
     authAPI.register(userData).then((resData) => {
-      localStorage.setItem("token", resData.token);
-      getMe();
+      if (resData.token) {
+        localStorage.setItem("token", resData.token);
+        getMe();
+      }
     });
   };
+
+  if (user) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <form

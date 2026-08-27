@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { type LoginFormProps, type LoginFormState } from "../types";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { type LoginFormState } from "../types";
 import authAPI from "../authAPI";
 import { useAuth } from "../AuthContext";
 
@@ -21,7 +21,9 @@ const LoginSchema = z.object({
   password: z.string().min(8, { error: "Password must be at least 8 symbols" }),
 });
 
-function LoginForm({ onLogin }: LoginFormProps) {
+function LoginForm() {
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const { register, handleSubmit, formState, setError } =
     useForm<LoginFormState>({
       resolver: zodResolver(LoginSchema),
@@ -32,9 +34,11 @@ function LoginForm({ onLogin }: LoginFormProps) {
     authAPI
       .login(userData)
       .then((resData) => {
-        localStorage.setItem("token", resData.token);
-        onLogin();
-        getMe();
+        if (resData.token) {
+          localStorage.setItem("token", resData.token);
+          getMe();
+          navigate("/");
+        }
       })
       .catch((error) => {
         setError("root.serverError", {
@@ -43,6 +47,10 @@ function LoginForm({ onLogin }: LoginFormProps) {
         });
       });
   };
+
+  if (user) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <form

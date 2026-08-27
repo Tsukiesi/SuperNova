@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LinkButton from "@/shared/ui/LinkButton";
+import { useAuth } from "@/features/auth/AuthContext";
 interface MenuProps {
   isActive: boolean;
 }
@@ -50,6 +51,13 @@ function Header() {
 export default Header;
 
 function Menu({ isActive }: MenuProps) {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+  function handleLogout() {
+    localStorage.removeItem("token");
+    logout();
+    navigate("/login");
+  }
   return (
     <nav
       className={`fixed left-0 top-20 bottom-0 w-36 z-1 font-medium border-r-2 border-black bg-background ${isActive ? "inline" : "hidden"} `}
@@ -60,6 +68,9 @@ function Menu({ isActive }: MenuProps) {
         </li>
         <li>
           <LinkButton to="/">Exoplanets</LinkButton>
+        </li>
+        <li>
+          <Button onClick={handleLogout}>Logout</Button>
         </li>
         <li className="absolute bottom-4">
           <Button>Settings</Button>

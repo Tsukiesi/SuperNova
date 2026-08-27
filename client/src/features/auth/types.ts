@@ -1,7 +1,3 @@
-export type LoginFormProps = {
-  onLogin: () => void;
-};
-
 export type LoginFormState = {
   email: string;
   password: string;
@@ -24,6 +20,7 @@ export type AuthContextType = {
   user: User | null;
   isLoading: boolean;
   getMe(): Promise<void>;
+  logout(): void;
 };
 
 export type LoginForm = {

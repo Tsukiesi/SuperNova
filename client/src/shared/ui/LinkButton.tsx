@@ -8,7 +8,7 @@ function LinkButton({ to, children }: LinkButtonProps) {
     <Link
       to={to}
       className={
-        "inline-flex shrink-0 items-center justify-center text-sm font-medium px-3 h-9 rounded-4xl bg-primary text-primary-foreground hover:bg-primary/80"
+        "inline-flex shrink-0 items-center justify-center text-sm font-medium px-3 h-9 rounded-4xl bg-button text-primary hover:bg-button/80 select-none outline-none"
       }
     >
       {children}

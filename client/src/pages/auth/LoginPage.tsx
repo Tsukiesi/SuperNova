@@ -11,7 +11,7 @@ function LoginPage() {
       }
     >
       <div
-        className={`absolute inset-0 z-0 bg-cover bg-center transition-opacity duration-800 bg-[url('/background-clouds.jpg')]`}
+        className={`absolute inset-0 z-0 bg-cover bg-center bg-[url('/background-clouds.jpg')]`}
       />
 
       <div className="flex flex-col justify-center items-center gap-4 relative z-10">

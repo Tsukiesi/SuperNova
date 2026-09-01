@@ -41,7 +41,7 @@ function LoginForm() {
         }
       })
       .catch((error) => {
-        setError("root.serverError", {
+        setError("password", {
           type: "server",
           message: error.message,
         });
@@ -87,10 +87,6 @@ function LoginForm() {
           />
           <FieldError
             errors={[errors.password]}
-            className="absolute top-full mt-1"
-          />
-          <FieldError
-            errors={[errors.root?.serverError]}
             className="absolute top-full mt-1"
           />
         </Field>

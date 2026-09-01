@@ -31,6 +31,7 @@
   --border: oklch(1 0 0 / 10%);
   --input: #4e1f6e;
   --input-secondary: #164b68;
+  --button: #f5e6ff;
   --ring: oklch(0.65 0.25 300);
   --ring-secondary: oklch(0.65 0.25 220);
   --chart-1: oklch(0.87 0 0);
@@ -72,6 +73,7 @@ body {
   --color-ring-secondary: var(--ring-secondary);
   --color-input: var(--input);
   --color-input-secondary: var(--input-secondary);
+  --color-button: var(--button);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
@@ -95,6 +97,10 @@ body {
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  --animate-wiggle: wiggle 1s ease-in-out infinite;
+  --animate-spin: spin 2s linear infinite;
+  --animate-spin-oposite: spin-oposite 2s linear infinite;
 }
 
 @layer base {
@@ -106,5 +112,21 @@ body {
   }
   html {
     @apply font-sans;
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes spin-oposite {
+  to {
+    transform: rotate(-360deg);
   }
 }

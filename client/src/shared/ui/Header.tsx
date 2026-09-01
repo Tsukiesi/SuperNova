@@ -1,17 +1,27 @@
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LinkButton from "@/shared/ui/LinkButton";
 import { useAuth } from "@/features/auth/AuthContext";
+import Modal from "./Modal";
+import { closeElement } from "../lib/helpers";
 interface MenuProps {
   isActive: boolean;
+  closeMenu: () => void;
 }
 
 function Header() {
   const [isActive, setIsActive] = useState(false);
+  const closeMenu = () => setIsActive(false);
   return (
-    <header className="fixed top-0 w-full h-20 z-1 text-2xl font-bold border-b-2 border-black bg-background flex justify-between items-center p-4">
-      <button onClick={() => setIsActive(!isActive)}>
+    <header className="fixed top-0 w-full h-20 z-1 text-2xl font-bold border-b border-black bg-primary flex justify-between items-center p-4">
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsActive(!isActive);
+        }}
+        className="cursor-pointer"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           x="0px"
@@ -27,7 +37,7 @@ function Header() {
       <Link to="/" className="text-3xl">
         SuperNova
       </Link>
-      <button type="button">
+      <button className="cursor-pointer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -43,14 +53,17 @@ function Header() {
           />
         </svg>
       </button>
-      <Menu isActive={isActive} />
+      <Menu isActive={isActive} closeMenu={closeMenu} />
     </header>
   );
 }
 
 export default Header;
 
-function Menu({ isActive }: MenuProps) {
+function Menu({ isActive, closeMenu }: MenuProps) {
+  const [isModalActive, setIsModalActive] = useState(false);
+  const closeModal = () => setIsModalActive(false);
+  const menuRef = useRef<HTMLElement>(null);
   const navigate = useNavigate();
   const { logout } = useAuth();
   function handleLogout() {
@@ -58,24 +71,42 @@ function Menu({ isActive }: MenuProps) {
     logout();
     navigate("/login");
   }
+  closeElement(isActive, menuRef, "menu", closeMenu, isModalActive);
   return (
-    <nav
-      className={`fixed left-0 top-20 bottom-0 w-36 z-1 font-medium border-r-2 border-black bg-background ${isActive ? "inline" : "hidden"} `}
-    >
-      <ul className="h-[calc(100vh-80px)] pt-4 flex flex-col gap-8 items-center">
-        <li>
-          <LinkButton to="/">Missions</LinkButton>
-        </li>
-        <li>
-          <LinkButton to="/">Exoplanets</LinkButton>
-        </li>
-        <li>
-          <Button onClick={handleLogout}>Logout</Button>
-        </li>
-        <li className="absolute bottom-4">
-          <Button>Settings</Button>
-        </li>
-      </ul>
-    </nav>
+    <>
+      <nav
+        inert={!isActive}
+        ref={menuRef}
+        id={"menu"}
+        className={`fixed -left-36 top-20 bottom-0 w-36 z-1 transition-transform duration-500 font-medium bg-primary ${isActive ? "translate-x-36" : "pointer-events-none"} `}
+      >
+        <ul className="h-[calc(100vh-80px)] pt-4 flex flex-col gap-8 items-center">
+          <li>
+            <LinkButton to="/">Missions</LinkButton>
+          </li>
+          <li>
+            <LinkButton to="/">Exoplanets</LinkButton>
+          </li>
+          <li className="absolute bottom-4">
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsModalActive(!isModalActive);
+              }}
+            >
+              Settings
+            </Button>
+          </li>
+        </ul>
+      </nav>
+      <Modal
+        isModalActive={isModalActive}
+        closeModal={closeModal}
+        className="w-100 h-100 bg-primary rounded-4xl flex flex-col items-center gap-2 p-4"
+      >
+        <h1>Settings</h1>
+        <Button onClick={handleLogout}>Logout</Button>
+      </Modal>
+    </>
   );
 }

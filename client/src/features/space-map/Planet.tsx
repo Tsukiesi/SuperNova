@@ -2,6 +2,7 @@ import { useFrame, useLoader } from "@react-three/fiber";
 import { type Mesh, TextureLoader } from "three";
 import { useRef } from "react";
 interface PlanetProps {
+  planetName: string;
   textureUrl: string;
   distance: number;
   radius: number;
@@ -9,8 +10,10 @@ interface PlanetProps {
   rotationSpeed: number;
   elapsed: number;
   isPaused: boolean;
+  selectPlanet: (planetName: string) => void;
 }
 function Planet({
+  planetName,
   textureUrl,
   distance,
   radius,
@@ -18,6 +21,7 @@ function Planet({
   rotationSpeed,
   elapsed,
   isPaused,
+  selectPlanet,
 }: PlanetProps) {
   const texture = useLoader(TextureLoader, `${textureUrl}`);
   const meshRef = useRef<Mesh>(null);
@@ -29,7 +33,14 @@ function Planet({
     meshRef.current.position.z = Math.sin(angle) * distance;
   });
   return (
-    <mesh ref={meshRef} position={[distance, 0, 0]}>
+    <mesh
+      onClick={(e) => {
+        e.stopPropagation();
+        selectPlanet(planetName);
+      }}
+      ref={meshRef}
+      position={[distance, 0, 0]}
+    >
       <sphereGeometry args={[radius, 36, 36]} />
       <meshStandardMaterial map={texture} />
     </mesh>

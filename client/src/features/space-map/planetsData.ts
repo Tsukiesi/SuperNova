@@ -1,6 +1,7 @@
 export const planetsData = [
   {
     id: 13123,
+    planetName: "Earth",
     textureUrl: "/earth.jpg",
     distance: 45,
     radius: 3,
@@ -9,6 +10,7 @@ export const planetsData = [
   },
   {
     id: 11254,
+    planetName: "Mercury",
     textureUrl: "/mercury.jpg",
     distance: 20,
     radius: 1,
@@ -17,6 +19,7 @@ export const planetsData = [
   },
   {
     id: 12345,
+    planetName: "Jupiter",
     textureUrl: "/jupiter.jpg",
     distance: 80,
     radius: 7.15,
@@ -25,6 +28,7 @@ export const planetsData = [
   },
   {
     id: 15678,
+    planetName: "Mars",
     textureUrl: "/mars.jpg",
     distance: 60,
     radius: 1.5,
@@ -33,6 +37,7 @@ export const planetsData = [
   },
   {
     id: 51332,
+    planetName: "Saturn",
     textureUrl: "/saturn.jpg",
     distance: 100,
     radius: 7,
@@ -41,6 +46,7 @@ export const planetsData = [
   },
   {
     id: 78462,
+    planetName: "Neptune",
     textureUrl: "/neptune.jpg",
     distance: 150,
     radius: 5,
@@ -49,6 +55,7 @@ export const planetsData = [
   },
   {
     id: 25464,
+    planetName: "Uranus",
     textureUrl: "/uranus.jpg",
     distance: 125,
     radius: 5.1,
@@ -57,6 +64,7 @@ export const planetsData = [
   },
   {
     id: 87246,
+    planetName: "Venus",
     textureUrl: "/venus.jpg",
     distance: 30,
     radius: 2.9,

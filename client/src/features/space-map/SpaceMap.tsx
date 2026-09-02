@@ -9,13 +9,18 @@ import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { Button } from "@/components/ui/button";
 import * as THREE from "three";
 import OrbitRing from "./OrbitRing";
+import PlanetMenu from "./PlanetMenu";
+
 type CameraPosType = [x: number, y: number, z?: number | undefined];
 function SpaceMap() {
   const [isPaused, setIsPaused] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [isFullSreen, setIsFullScreen] = useState(false);
+  const [planetSelected, setPlanetSelected] = useState<string | null>(null);
   const initialCameraPosition: CameraPosType = [0, 15, 30];
   const controlsRef = useRef<OrbitControlsImpl>(null);
+  const closePlanetMenu = () => setPlanetSelected(null);
+  const selectPlanet = (planetName: string) => setPlanetSelected(planetName);
   useEffect(() => {
     controlsRef.current?.saveState();
   }, []);
@@ -102,6 +107,12 @@ function SpaceMap() {
             </svg>
           )}
         </button>
+        {planetSelected && (
+          <PlanetMenu
+            name={planetSelected}
+            closeMenu={closePlanetMenu}
+          ></PlanetMenu>
+        )}
         <Canvas
           camera={{
             position: initialCameraPosition,
@@ -114,6 +125,7 @@ function SpaceMap() {
           {planetsData.map((data) => (
             <Planet
               key={data.id}
+              planetName={data.planetName}
               textureUrl={data.textureUrl}
               distance={data.distance}
               radius={data.radius}
@@ -121,6 +133,7 @@ function SpaceMap() {
               rotationSpeed={data.rotationSpeed}
               elapsed={elapsed}
               isPaused={isPaused}
+              selectPlanet={selectPlanet}
             />
           ))}
           {planetsData.map((data, index) => (

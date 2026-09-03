@@ -115,16 +115,6 @@ body {
   }
 }
 
-@keyframes wiggle {
-  0%,
-  100% {
-    transform: rotate(-3deg);
-  }
-  50% {
-    transform: rotate(3deg);
-  }
-}
-
 @keyframes spin-oposite {
   to {
     transform: rotate(-360deg);

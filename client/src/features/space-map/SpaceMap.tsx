@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import Sun from "./Sun";
-import { planetsData } from "./planetsData";
+import { planetsVisualData } from "./planetsData";
 import Planet from "./Planet";
 import { useState, useRef, useEffect } from "react";
 import AnimationController from "./AnimationController";
@@ -30,7 +30,7 @@ function SpaceMap() {
         className={
           isFullSreen
             ? `fixed w-screen h-screen z-5 bg-[url('/solar-system-stars.jpg')]`
-            : `fixed rounded-4xl w-240 h-120 bg-[url('/solar-system-stars.jpg')] mt-28`
+            : `fixed rounded-4xl w-[48vw] h-[48vh] min-w-120 min-h-24 bg-[url('/solar-system-stars.jpg')] mt-28`
         }
       >
         <button
@@ -122,7 +122,7 @@ function SpaceMap() {
           <ambientLight intensity={0.3} />
           <pointLight position={[0, 0, 0]} intensity={5000} />
           <Sun />
-          {planetsData.map((data) => (
+          {planetsVisualData.map((data) => (
             <Planet
               key={data.id}
               planetName={data.planetName}
@@ -136,7 +136,7 @@ function SpaceMap() {
               selectPlanet={selectPlanet}
             />
           ))}
-          {planetsData.map((data, index) => (
+          {planetsVisualData.map((data, index) => (
             <OrbitRing key={index} radius={data.distance} />
           ))}
           <AnimationController isPaused={isPaused} setElapsed={setElapsed} />

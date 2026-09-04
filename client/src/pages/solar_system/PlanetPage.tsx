@@ -36,23 +36,25 @@ function PlanetPage() {
                 {name} characteristics
               </span>
               <hr />
+              {planetData.planetName !== "sun" ? (
+                <p>
+                  <strong>Distance from sun:</strong> {planetData.distance}{" "}
+                  kilometers
+                </p>
+              ) : null}
               <p>
-                <strong>Distance from sun</strong> {planetData.distance}{" "}
-                kilometers
+                <strong>Radius:</strong> {planetData.radius} kilometers
               </p>
               <p>
-                <strong>Radius</strong> {planetData.radius} kilometers
-              </p>
-              <p>
-                <strong>Mass</strong> {planetData.mass}x10
+                <strong>Mass:</strong> {planetData.mass}x10
                 <sup>{planetData.massPow}</sup> kilogramms
               </p>
               <p>
-                <strong>Average temperature</strong> {planetData.tempC}&deg;C (
+                <strong>Average temperature:</strong> {planetData.tempC}&deg;C (
                 {planetData.tempF}&deg;F)
               </p>
               <p>
-                <strong>Gravity</strong> {planetData.gravity} m/s<sup>2</sup>
+                <strong>Gravity:</strong> {planetData.gravity} m/s<sup>2</sup>
               </p>
             </li>
           </ul>

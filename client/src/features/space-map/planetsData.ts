@@ -179,4 +179,17 @@ export const planetsRealData = [
     description:
       "Venus is the second planet from the Sun. Similar in size and mass to Earth, Venus has no liquid water, and its atmosphere is far thicker and denser than that of any other rocky body in the Solar System. The atmosphere is composed mostly of carbon dioxide and has a thick cloud layer of sulfuric acid that spans the whole planet. At the mean surface level, the atmosphere reaches a temperature of 737 K (464 °C; 867 °F), making it the hottest planet in the solar system and also a pressure 92 times greater than Earth's at sea level, turning the lowest layer of the atmosphere into a supercritical fluid. From Earth, Venus is visible as a star-like point of light, appearing brighter than any other natural point of light in the sky, as either the brightest <morning star> or <evening star>. It was also given the poetic name Ēarendel in Old English, meaning <ray of light> along with the two previous epithets.",
   },
+
+  {
+    id: 17,
+    planetName: "sun",
+    radius: "695.508",
+    mass: "1.989",
+    massPow: "30",
+    tempC: "15 million",
+    tempF: "27 million",
+    gravity: "274",
+    description:
+      "The Sun is the star located at the centre of the Solar System. It is a massive sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core, radiating the energy from its surface mainly as visible light and infrared radiation with 10% at ultraviolet energies. It is the main source of energy for life on Earth. The Sun has been an object of veneration in many cultures and a central subject of astronomical research since antiquity.",
+  },
 ];

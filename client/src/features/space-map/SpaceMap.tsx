@@ -121,7 +121,7 @@ function SpaceMap() {
         >
           <ambientLight intensity={0.3} />
           <pointLight position={[0, 0, 0]} intensity={5000} />
-          <Sun />
+          <Sun selectPlanet={selectPlanet} selected={planetSelected} />
           {planetsVisualData.map((data) => (
             <Planet
               key={data.id}
@@ -134,6 +134,7 @@ function SpaceMap() {
               elapsed={elapsed}
               isPaused={isPaused}
               selectPlanet={selectPlanet}
+              selected={planetSelected}
             />
           ))}
           {planetsVisualData.map((data, index) => (

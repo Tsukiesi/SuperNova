@@ -1,4 +1,4 @@
-import Header from "@/shared/ui/Header.tsx";
+import Header from "@/widgets/header/Header";
 import LinkButton from "@/shared/ui/LinkButton";
 function HomePage() {
   return (

@@ -1,4 +1,4 @@
-import Header from "@/shared/ui/Header";
+import Header from "@/widgets/header/Header";
 import { planetsRealData } from "@/features/space-map/planetsData";
 import { useParams } from "react-router-dom";
 function PlanetPage() {

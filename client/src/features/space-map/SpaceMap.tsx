@@ -14,7 +14,7 @@ import PlanetMenu from "./PlanetMenu";
 type CameraPosType = [x: number, y: number, z?: number | undefined];
 function SpaceMap() {
   const [isPaused, setIsPaused] = useState(false);
-  const [elapsed, setElapsed] = useState(0);
+  const elapsed = useRef(0);
   const [isFullSreen, setIsFullScreen] = useState(false);
   const [planetSelected, setPlanetSelected] = useState<string | null>(null);
   const initialCameraPosition: CameraPosType = [0, 15, 30];
@@ -140,7 +140,7 @@ function SpaceMap() {
           {planetsVisualData.map((data, index) => (
             <OrbitRing key={index} radius={data.distance} />
           ))}
-          <AnimationController isPaused={isPaused} setElapsed={setElapsed} />
+          <AnimationController isPaused={isPaused} elapsed={elapsed} />
           <OrbitControls
             ref={controlsRef}
             enablePan={false}

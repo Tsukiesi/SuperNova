@@ -1,16 +1,9 @@
 import { useFrame } from "@react-three/fiber";
-import { type Dispatch, type SetStateAction } from "react";
-interface AnimationControllerProps {
-  isPaused: boolean;
-  setElapsed: Dispatch<SetStateAction<number>>;
-}
-function AnimationController({
-  isPaused,
-  setElapsed,
-}: AnimationControllerProps) {
+import { type AnimationControllerProps } from "./types";
+function AnimationController({ isPaused, elapsed }: AnimationControllerProps) {
   useFrame((_, delta) => {
     if (!isPaused) {
-      setElapsed((elapsed) => elapsed + delta);
+      elapsed.current += delta;
     }
   });
   return null;

@@ -1,8 +1,5 @@
 import LinkButton from "@/shared/ui/LinkButton";
-interface PlanetMenuProps {
-  name: string;
-  closeMenu: () => void;
-}
+import { type PlanetMenuProps } from "./types";
 
 function PlanetMenu({ name, closeMenu }: PlanetMenuProps) {
   return (

@@ -1,4 +1,4 @@
-import Header from "@/shared/ui/Header";
+import Header from "@/widgets/header/Header";
 import SpaceMap from "@/features/space-map/SpaceMap";
 function SpacePage() {
   return (

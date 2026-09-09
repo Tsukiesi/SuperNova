@@ -1,6 +1,12 @@
+import useAuthStore from "@/features/auth/authStore";
 import RegisterForm from "@/features/auth/ui/RegisterForm";
+import { Navigate } from "react-router-dom";
 
 function RegisterPage() {
+  const user = useAuthStore((state) => state.user);
+  if (user) {
+    return <Navigate to="/" replace />;
+  }
   return (
     <div
       className={

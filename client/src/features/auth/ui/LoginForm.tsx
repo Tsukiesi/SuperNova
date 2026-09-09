@@ -9,10 +9,10 @@ import { Button } from "@/components/ui/button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { type LoginFormState } from "../types";
 import authAPI from "../authAPI";
-import { useAuth } from "../AuthContext";
+import useAuthStore from "../authStore";
 
 const LoginSchema = z.object({
   email: z
@@ -23,21 +23,19 @@ const LoginSchema = z.object({
 
 function LoginForm() {
   const navigate = useNavigate();
-  const { user } = useAuth();
   const { register, handleSubmit, formState, setError } =
     useForm<LoginFormState>({
       resolver: zodResolver(LoginSchema),
     });
   const { errors } = formState;
-  const { getMe } = useAuth();
+  const getMe = useAuthStore((state) => state.getMe);
   const onSubmit = (userData: LoginFormState) => {
     authAPI
       .login(userData)
       .then((resData) => {
         if (resData.token) {
           localStorage.setItem("token", resData.token);
-          getMe();
-          navigate("/");
+          getMe(navigate);
         }
       })
       .catch((error) => {
@@ -47,10 +45,6 @@ function LoginForm() {
         });
       });
   };
-
-  if (user) {
-    return <Navigate to="/" replace />;
-  }
 
   return (
     <form

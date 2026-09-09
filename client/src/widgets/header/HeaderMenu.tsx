@@ -1,10 +1,10 @@
-import { useAuth } from "@/features/auth/AuthContext";
 import { closeElement } from "@/shared/lib/helpers";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LinkButton from "@/shared/ui/LinkButton";
 import { Button } from "@/components/ui/button";
 import SettingsModal from "@/features/settings/SettingsModal";
+import useAuthStore from "@/features/auth/authStore";
 interface HeaderMenuProps {
   isActive: boolean;
   closeMenu: () => void;
@@ -15,7 +15,7 @@ function HeaderMenu({ isActive, closeMenu }: HeaderMenuProps) {
   const closeModal = () => setIsModalActive(false);
   const menuRef = useRef<HTMLElement>(null);
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const logout = useAuthStore((state) => state.logoutUser);
   function handleLogout() {
     localStorage.removeItem("token");
     logout();

@@ -1,11 +1,19 @@
 import LoginPage from "@/pages/auth/LoginPage";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import RegisterPage from "@/pages/auth/RegisterPage";
 import ProtectedRoutes from "@/features/auth/ProtectedRoutes";
 import HomePage from "@/pages/HomePage";
 import SpacePage from "@/pages/solar_system/SpacePage";
 import PlanetPage from "./pages/solar_system/PlanetPage";
+import { useEffect } from "react";
+import useAuthStore from "./features/auth/authStore";
 function App() {
+  const getMe = useAuthStore((state) => state.getMe);
+  const user = useAuthStore((state) => state.user);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user) getMe(navigate);
+  }, []);
   return (
     <>
       <Routes>

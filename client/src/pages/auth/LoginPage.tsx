@@ -1,9 +1,14 @@
 import LoginForm from "@/features/auth/ui/LoginForm";
 import rocketIcon from "@/assets/rocket-icon.svg";
-import { useAuth } from "@/features/auth/AuthContext";
+import useAuthStore from "@/features/auth/authStore";
+import { Navigate } from "react-router-dom";
 
 function LoginPage() {
-  const { isLoading } = useAuth();
+  const user = useAuthStore((state) => state.user);
+  const isLoading = useAuthStore((state) => state.isLoading);
+  if (user) {
+    return <Navigate to="/" replace />;
+  }
   return (
     <div
       className={

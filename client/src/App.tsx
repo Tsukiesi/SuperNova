@@ -7,13 +7,15 @@ import SpacePage from "@/pages/solar_system/SpacePage";
 import PlanetPage from "./pages/solar_system/PlanetPage";
 import { useEffect } from "react";
 import useAuthStore from "./features/auth/authStore";
+import Loading from "./shared/ui/Loading";
 function App() {
   const getMe = useAuthStore((state) => state.getMe);
   const user = useAuthStore((state) => state.user);
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user) getMe(navigate);
+    getMe(navigate);
   }, []);
+  if (user === undefined) return <Loading />;
   return (
     <>
       <Routes>

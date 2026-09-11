@@ -4,7 +4,7 @@ import { type NavigateFunction } from "react-router-dom";
 
 type useAuthStore = {
   isLoading: boolean;
-  user: User | null;
+  user: User | null | undefined;
   getMe: (navigate: NavigateFunction) => Promise<void>;
   setUser: (userData: User) => void;
   logoutUser: () => void;
@@ -12,7 +12,7 @@ type useAuthStore = {
 
 const useAuthStore = create<useAuthStore>((set) => ({
   isLoading: false,
-  user: null,
+  user: undefined,
   getMe: async (navigate: NavigateFunction) => {
     set(() => ({ isLoading: true }));
     const token = localStorage.getItem("token");

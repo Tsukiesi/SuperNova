@@ -126,7 +126,6 @@ function SpaceMap() {
             <Planet
               key={data.id}
               planetName={data.planetName}
-              textureUrl={data.textureUrl}
               distance={data.distance}
               radius={data.radius}
               speed={data.speed}

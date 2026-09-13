@@ -7,7 +7,6 @@ export interface AnimationControllerProps {
 
 export interface PlanetProps {
   planetName: string;
-  textureUrl: string;
   distance: number;
   radius: number;
   speed: number;

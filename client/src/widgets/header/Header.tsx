@@ -6,7 +6,7 @@ function Header() {
   const [isActive, setIsActive] = useState(false);
   const closeMenu = () => setIsActive(false);
   return (
-    <header className="fixed top-0 w-full h-20 z-1 text-2xl font-bold border-b border-black bg-primary flex justify-between items-center p-4">
+    <header className="fixed top-0 w-full h-20 z-1 text-2xl font-bold border-b border-background bg-primary flex justify-between items-center p-4">
       <button
         onClick={(e) => {
           e.stopPropagation();

@@ -5,7 +5,6 @@ import { Outlines, useCursor } from "@react-three/drei";
 import { type PlanetProps } from "./types";
 function Planet({
   planetName,
-  textureUrl,
   distance,
   radius,
   speed,
@@ -16,6 +15,7 @@ function Planet({
   selected,
 }: PlanetProps) {
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const textureUrl = `/${planetName}.jpg`;
   const texture = useLoader(TextureLoader, `${textureUrl}`);
   const meshRef = useRef<Mesh>(null);
   useFrame((_, delta) => {

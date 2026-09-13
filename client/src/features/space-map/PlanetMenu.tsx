@@ -8,7 +8,10 @@ function PlanetMenu({ name, closeMenu }: PlanetMenuProps) {
       <LinkButton to={`/space/${name}`} className={"mt-4"}>
         Visit planet
       </LinkButton>
-      <button onClick={() => closeMenu()} className="absolute top-4 right-4">
+      <button
+        onClick={() => closeMenu()}
+        className="absolute top-4 right-4 cursor-pointer"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

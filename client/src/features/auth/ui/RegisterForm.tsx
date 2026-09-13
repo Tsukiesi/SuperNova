@@ -131,7 +131,7 @@ function RegisterForm() {
       >
         <img
           className={
-            "w-10 h-10 border-2 border-transparent z-10 rounded-full mt-2 hover:border-black"
+            "w-10 h-10 border-2 border-transparent z-10 rounded-full mt-2 hover:border-black cursor-pointer"
           }
           src={leftArrowIcon}
         />

@@ -2,7 +2,6 @@ export const planetsVisualData = [
   {
     id: 1,
     planetName: "earth",
-    textureUrl: "/earth.jpg",
     distance: 45,
     radius: 3,
     speed: 0.3,
@@ -11,7 +10,6 @@ export const planetsVisualData = [
   {
     id: 2,
     planetName: "mercury",
-    textureUrl: "/mercury.jpg",
     distance: 20,
     radius: 1,
     speed: 0.47,
@@ -20,7 +18,6 @@ export const planetsVisualData = [
   {
     id: 3,
     planetName: "jupiter",
-    textureUrl: "/jupiter.jpg",
     distance: 80,
     radius: 7.15,
     speed: 0.13,
@@ -29,7 +26,6 @@ export const planetsVisualData = [
   {
     id: 4,
     planetName: "mars",
-    textureUrl: "/mars.jpg",
     distance: 60,
     radius: 1.5,
     speed: 0.24,
@@ -38,7 +34,6 @@ export const planetsVisualData = [
   {
     id: 5,
     planetName: "saturn",
-    textureUrl: "/saturn.jpg",
     distance: 100,
     radius: 7,
     speed: 0.097,
@@ -47,7 +42,6 @@ export const planetsVisualData = [
   {
     id: 6,
     planetName: "neptune",
-    textureUrl: "/neptune.jpg",
     distance: 150,
     radius: 5,
     speed: 0.054,
@@ -56,7 +50,6 @@ export const planetsVisualData = [
   {
     id: 7,
     planetName: "uranus",
-    textureUrl: "/uranus.jpg",
     distance: 125,
     radius: 5.1,
     speed: 0.068,
@@ -65,7 +58,6 @@ export const planetsVisualData = [
   {
     id: 8,
     planetName: "venus",
-    textureUrl: "/venus.jpg",
     distance: 30,
     radius: 2.9,
     speed: 0.35,

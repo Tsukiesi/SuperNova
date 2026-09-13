@@ -1,11 +1,9 @@
 import LoginForm from "@/features/auth/ui/LoginForm";
-import rocketIcon from "@/assets/rocket-icon.svg";
 import useAuthStore from "@/features/auth/authStore";
 import { Navigate } from "react-router-dom";
 
 function LoginPage() {
   const user = useAuthStore((state) => state.user);
-  const isLoading = useAuthStore((state) => state.isLoading);
   if (user) {
     return <Navigate to="/" replace />;
   }
@@ -22,11 +20,6 @@ function LoginPage() {
       <div className="flex flex-col justify-center items-center gap-4 relative z-10">
         <LoginForm />
       </div>
-
-      <img
-        className={`w-32 h-32 absolute z-10 left-72 bottom-36 transition-transform duration-1000 ease-in ${isLoading ? "translate-y-[-125vh]" : ""}`}
-        src={rocketIcon}
-      />
     </div>
   );
 }
